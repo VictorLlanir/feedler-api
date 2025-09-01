@@ -1,0 +1,25 @@
+{
+  "name": "feedler-api",
+  "version": "1.0.0",
+  "description": "Feedler back-end for feed RSS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "feedler"
+  },
+  "keywords": [
+    "feed",
+    "rss",
+    "feedler"
+  ],
+  "author": "Victor Llanir",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.1.0",
+    "rss-parser": "^3.13.0"
+  },
+  "type": "module"
+}

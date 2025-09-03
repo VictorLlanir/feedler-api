@@ -1,5 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import db from "../data/db";
+import Parser from "rss-parser";
+import { Feed } from "../models/feed.model";
 
 export const getFeeds = (req: Request, res: Response, next: NextFunction) => {
     db.serialize(() => {
@@ -39,6 +41,17 @@ export const getFeedById = (req: Request, res: Response, next: NextFunction) => 
     db.serialize(() => {
         db.get(`SELECT * FROM feeds WHERE id = ?`, [id], (err, row) => {
             res.status(200).json(row);
+        });
+    });
+}
+
+export const getPostsByFeedId = async (req: Request, res: Response, next: NextFunction) => {
+    const { id } = req.params;
+    db.serialize(() => {
+        db.get(`SELECT * FROM feeds WHERE id = ?`, [id], async (err, row: Feed) => {
+            const parser = new Parser();
+            const feed = await parser.parseURL(row.url);
+            res.status(200).json(feed);
         });
     });
 }
